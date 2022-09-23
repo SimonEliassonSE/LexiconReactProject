@@ -1,0 +1,14 @@
+/* .users {
+    padding: 1rem;
+    background-color: rgb(31, 31, 31);
+    margin: 2rem auto;
+    width: 50rem;
+    max-width: 95%;
+
+  } */
+
+  .users{
+    margin-bottom: 5px auto;
+    border:5px;
+    border-color: aliceblue;
+  }
