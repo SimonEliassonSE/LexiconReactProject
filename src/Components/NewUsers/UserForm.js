@@ -45,6 +45,7 @@ const UserForm = (props) => {
     console.log(userData);
 
     props.onSaveUserData(userData);
+    //Removes input (value) after a new input is finished
     setEnteredFirstName("");
     setEnteredSecondName("");
     setEnteredAge("");
@@ -128,81 +129,6 @@ const UserForm = (props) => {
         </Card>
       </Container>
     </div>
-
-    // <div className="formContainer">
-    //   <form onSubmit={submitHandler}>
-    //     <div className="container">
-    //       <div className="userItem">
-    //         <label className="label"> First name </label>
-    //         <input
-    //           type="text"
-    //           value={enteredFirstName} //this is the displayed value
-    //           onChange={firstNameChangeHandler} // this function will ones the button is clicked take the input and change the "enteredFirstName value"
-    //           required
-    //         />
-    //       </div>
-    //     </div>
-
-    //     <div className="container">
-    //       <div className="userItem">
-    //         <label className="label"> Second name </label>
-    //         <input
-    //           type="text"
-    // value={enteredSecondName}
-    // onChange={secondNameChangeHandler}
-    //           required
-    //         />
-    //       </div>
-    //     </div>
-
-    //     <div className="container">
-    //       <div className="userItem">
-    //         <label className="label"> Age </label>
-    //         <input
-    //           type="number"
-    //           min="1"
-    //           step="1"
-    // value={enteredAge}
-    // onChange={ageChangeHandler}
-    //           required
-    //         />
-    //       </div>
-    //     </div>
-
-    //     <div className="container">
-    //       <div className="userItem">
-    //         <label className="label"> Nationality </label>
-    //         <input
-    //           type="text"
-    // value={enteredNationality}
-    // onChange={nationalityChangeHandler}
-    //           required
-    //         />
-    //       </div>
-    //     </div>
-
-    //     <div className="container">
-    //       <div className="userItem">
-    //         <label className="label"> Email </label>
-    //         <input
-    //           type="text"
-    // value={enteredEmail}
-    // onChange={emailChangeHandler}
-    //           required
-    //         />
-    //       </div>
-    //     </div>
-
-    //     <div className="submitButton">
-    //       <button type="submit"> Add new user </button>
-    //     </div>
-    //     {/* <p>{enteredFirstName}</p>
-    //     <p>{enteredSecondName}</p>
-    //     <p>{enteredAge}</p>
-    //     <p>{enteredNationality}</p>
-    //     <p>{enteredEmail}</p> */}
-    //   </form>
-    // </div>
   );
 };
 export default UserForm;
