@@ -1,124 +1,92 @@
-import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Container, Row, Card, Col } from "react-bootstrap";
-import NewUser from "./Components/NewUsers/NewUser";
-import Users from "./Components/Users/Users";
-
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useMemo, useState } from "react";
+import Navbar from "./Components/Pages/Navbar";
+// import UserList from "../src/Components/Pages/UserList";
+import UserList, { userArray } from "../src/Components/Pages/UserList";
+import LoggInForm from "../src/Components/LoggFunctions/LoggIn";
+import LoggOut from "../src/Components/LoggFunctions/LoggOut";
+import Home from "../src/Components/Pages/Home";
+import Details from "../src/Components/Pages/Details";
+// import { UserContext, UserDetails } from "./index";
+import { UserContext, UserDetails, UserListData } from "./index";
 
-const userArray = [
-  // {
-  //   firstName: "Alejandro",
-  //   secondName: "Salomon",
-  //   age: "35",
-  //   nationality: "Norway",
-  //   email: "asalomon0@eventbrite.com",
-  // },
-  // {
-  //   firstName: "Blair",
-  //   secondName: "Freebury",
-  //   age: "24",
-  //   nationality: "Somalia",
-  //   email: "bfreebury1@csmonitor.com",
-  // },
-  // {
-  //   firstName: "Alfie",
-  //   secondName: "Galilee",
-  //   age: "76",
-  //   nationality: "Indonesia",
-  //   email: "agalilee2@edublogs.org",
-  // },
-  // {
-  //   firstName: "Allyce",
-  //   secondName: "Salvadori",
-  //   age: "52",
-  //   nationality: "Thailand",
-  //   email: "asalvadori3@redcross.org",
-  // },
-  // {
-  //   firstName: "Meyer",
-  //   secondName: "McConnel",
-  //   age: "39",
-  //   nationality: "Poland",
-  //   email: "mmcconnel4@dagondesign.com",
-  // },
-];
+function App() {
+  const [user, setUser] = useState(null);
+  const providerValu = useMemo(() => ({ user, setUser }), [user, setUser]);
 
-const App = () => {
-  const [users, setUsers] = useState(userArray);
+  const [userDetails, setUserDetails] = useState(null);
+  const detailValues = useMemo(
+    () => ({ userDetails, setUserDetails }),
+    [userDetails, setUserDetails]
+  );
 
-  const addUserHandler = (user) => {
-    setUsers((prevUsers) => {
-      return [user, ...prevUsers];
-    });
-  };
-  if (users.length > 0) {
-    return (
-      <div className="App">
-        <Container>
-          <Row className="mt-5">
-            <NewUser onAddUser={addUserHandler} />
-          </Row>
+  const [userList, setUserList] = useState(userArray);
+  const listValues = useMemo(
+    () => ({ userList, setUserList }),
+    [userList, setUserList]
+  );
 
-          <Card className="p-3 mt-5">
-            <Row className="mb-2">
-              <Col className="mb-2">
-                <h5>First name: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Second name: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Age: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Nationality: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Email:</h5>
-              </Col>
-              <Users items={users} />
-            </Row>
-          </Card>
-        </Container>
-      </div>
-    );
-  } else if (users.length <= 0) {
-    return (
-      <div className="App">
-        <Container>
-          <Row className="mt-5">
-            <NewUser onAddUser={addUserHandler} />
-          </Row>
-
-          <Card className="p-3 mt-5">
-            <Row className="mb-2">
-              <Col className="mb-2">
-                <h5>First name: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Second name: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Age: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Nationality: </h5>
-              </Col>
-              <Col className="mb-2">
-                <h5>Email:</h5>
-              </Col>
-            </Row>
-            <Row className="m-5">
-              <Card className="p-5">
-                <h3>There are no user's to display! Please add a user</h3>
-              </Card>
-            </Row>
-          </Card>
-        </Container>
-      </div>
-    );
-  }
-};
+  return (
+    <BrowserRouter>
+      <UserContext.Provider value={providerValu}>
+        <Navbar />
+      </UserContext.Provider>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <UserContext.Provider value={providerValu}>
+              <Home />
+            </UserContext.Provider>
+          }
+        />
+        <Route
+          path="/Home"
+          element={
+            <UserContext.Provider value={providerValu}>
+              <Home />
+            </UserContext.Provider>
+          }
+        />
+        <Route
+          path="/Userlist"
+          element={
+            <UserDetails.Provider value={detailValues}>
+              <UserListData.Provider value={listValues}>
+                <UserList />
+              </UserListData.Provider>
+            </UserDetails.Provider>
+          }
+        />
+        <Route
+          path="/Loggin"
+          element={
+            <UserContext.Provider value={providerValu}>
+              <LoggInForm />
+            </UserContext.Provider>
+          }
+        />
+        <Route
+          path="/LoggOut"
+          element={
+            <UserContext.Provider value={providerValu}>
+              <LoggOut />
+            </UserContext.Provider>
+          }
+        />
+        <Route
+          path="/Details"
+          element={
+            <UserDetails.Provider value={detailValues}>
+              <Details />
+            </UserDetails.Provider>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export default App;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./UserForm.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import { Button, Card, Form, Col, Row, Container } from "react-bootstrap";
 
 //This UserForm is used to "take" input from the user, however the data will not be stored here but in a list in app.
@@ -42,6 +43,7 @@ const UserForm = (props) => {
       nationality: enteredNationality,
       email: enteredEmail,
     };
+
     console.log(userData);
 
     props.onSaveUserData(userData);
